@@ -156,6 +156,14 @@
             <trans-unit id="action.sign_in">
                 <source>action.sign_in</source>
                 <target>Sign in</target>
+            </trans-unit>           
+			<trans-unit id="action.facebook">
+                <source>action.facebook</source>
+                <target>Signin with Facebook</target>
+            </trans-unit>		
+			<trans-unit id="action.google">
+                <source>action.google</source>
+                <target>Signin with Google</target>
             </trans-unit>
             <trans-unit id="action.browse_app">
                 <source>action.browse_app</source>
@@ -295,7 +303,7 @@
             </trans-unit>
             <trans-unit id="help.login_users">
                 <source>help.login_users</source>
-                <target>Try either of the following users</target>
+                <target>or Sign In With</target>
             </trans-unit>
             <trans-unit id="help.role_user">
                 <source>help.role_user</source>

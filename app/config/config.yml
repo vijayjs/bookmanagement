@@ -93,3 +93,18 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+    
+hwi_oauth:
+    resource_owners:
+        any_name:
+            type:                google
+            client_id:           470864902135-sjcch4esa7bbl4tpk6rd1e93vcbe3c16.apps.googleusercontent.com
+            client_secret:       sF0KbM7l0tE94UvD80QyfKEf
+            scope:               "email profile"
+        any_name:
+            type:                facebook
+            client_id:           665533733526541
+            client_secret:       a8aa26b5d7bc159f755b8d4a2e58eeed
+            options:
+                display: popup #dialog is optimized for popup window
+                auth_type: rerequest # Re-asking for Declined Permissions

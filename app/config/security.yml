@@ -5,15 +5,23 @@ security:
         AppBundle\Entity\User: bcrypt
 
     providers:
-        # in this example, users are stored via Doctrine in the database
-        # To see the users at src/AppBundle/DataFixtures/ORM/LoadFixtures.php
-        # To load users from somewhere else: http://symfony.com/doc/current/cookbook/security/custom_provider.html
         database_users:
             entity: { class: AppBundle:User, property: username }
 
     # http://symfony.com/doc/current/book/security.html#firewalls-authentication
     firewalls:
         secured_area:
+            anonymous: ~
+            oauth:
+                resource_owners:
+                    google:             "/login/check-google"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+
+                oauth_user_provider:
+                    service: my.oauth_aware.user_provider.service
+
             # this firewall applies to all URLs
             pattern: ^/
 
@@ -42,4 +50,5 @@ security:
     access_control:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
-        - { path: '^/(%app_locales%)/admin', roles: ROLE_ADMIN }
+        - { path: '^/admin', roles: ROLE_ADMIN }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
