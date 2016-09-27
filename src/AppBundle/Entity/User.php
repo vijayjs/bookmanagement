@@ -2,127 +2,72 @@
 
 namespace AppBundle\Entity;
 
+use FOS\UserBundle\Model\User as FOSUBUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
- * @ORM\Table(name="symfony_demo_user")
- *
- * Defines the properties of the User entity to represent the application users.
- * See http://symfony.com/doc/current/book/doctrine.html#creating-an-entity-class
- *
- * Tip: if you have an existing database, you can generate these entity class automatically.
- * See http://symfony.com/doc/current/cookbook/doctrine/reverse_engineering.html
- *
- * @author Ryan Weaver <weaverryan@gmail.com>
- * @author Javier Eguiluz <javier.eguiluz@gmail.com>
+ * @ORM\Table(name="users")
+ * @ORM\Entity
  */
-class User implements UserInterface
+class User extends FOSUBUser
 {
     /**
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
      */
-    private $username;
+    private $facebookId;
+
+    private $facebookAccessToken;
 
     /**
-     * @ORM\Column(type="string", unique=true)
+     * @return integer
      */
-    private $email;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $password;
-
-    /**
-     * @ORM\Column(type="json_array")
-     */
-    private $roles = [];
-
     public function getId()
     {
         return $this->id;
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $facebookId
+     * @return User
      */
-    public function getUsername()
+    public function setFacebookId($facebookId)
     {
-        return $this->username;
-    }
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
+        $this->facebookId = $facebookId;
 
-    public function getEmail()
-    {
-        return $this->email;
-    }
-    public function setEmail($email)
-    {
-        $this->email = $email;
+        return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
-    public function getPassword()
+    public function getFacebookId()
     {
-        return $this->password;
-    }
-    public function setPassword($password)
-    {
-        $this->password = $password;
+        return $this->facebookId;
     }
 
     /**
-     * Returns the roles or permissions granted to the user for security.
+     * @param string $facebookAccessToken
+     * @return User
      */
-    public function getRoles()
+    public function setFacebookAccessToken($facebookAccessToken)
     {
-        $roles = $this->roles;
+        $this->facebookAccessToken = $facebookAccessToken;
 
-        // guarantees that a user always has at least one role for security
-        if (empty($roles)) {
-            $roles[] = 'ROLE_USER';
-        }
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles)
-    {
-        $this->roles = $roles;
+        return $this;
     }
 
     /**
-     * Returns the salt that was originally used to encode the password.
+     * @return string
      */
-    public function getSalt()
+    public function getFacebookAccessToken()
     {
-        // See "Do you need to use a Salt?" at http://symfony.com/doc/current/cookbook/security/entity_provider.html
-        // we're using bcrypt in security.yml to encode the password, so
-        // the salt value is built-in and you don't have to generate one
-
-        return;
-    }
-
-    /**
-     * Removes sensitive data from the user.
-     */
-    public function eraseCredentials()
-    {
-        // if you had a plainPassword property, you'd nullify it here
-        // $this->plainPassword = null;
+        return $this->facebookAccessToken;
     }
 }

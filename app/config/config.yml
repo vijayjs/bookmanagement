@@ -95,16 +95,32 @@ swiftmailer:
     spool:     { type: memory }
     
 hwi_oauth:
+    connect:
+        account_connector: my.custom.user_provider
+    fosub:
+        username_iterations: 30
+        properties:
+            facebook:    facebook_id
+    firewall_names: [secured_area]
     resource_owners:
-        any_name:
-            type:                google
-            client_id:           470864902135-sjcch4esa7bbl4tpk6rd1e93vcbe3c16.apps.googleusercontent.com
-            client_secret:       sF0KbM7l0tE94UvD80QyfKEf
-            scope:               "email profile"
-        any_name:
+        facebook:
             type:                facebook
-            client_id:           665533733526541
-            client_secret:       a8aa26b5d7bc159f755b8d4a2e58eeed
+            client_id:           "%facebook_app_id%"
+            client_secret:       "%facebook_app_secret%"
+            scope:               ""
             options:
                 display: popup #dialog is optimized for popup window
                 auth_type: rerequest # Re-asking for Declined Permissions
+        google:
+            type:                google
+            client_id:           "%google_app_id%"
+            client_secret:       "%google_app_secret%"
+            scope:               "email profile"
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: AppBundle\Entity\User
+services:
+    my.custom.user_provider:
+        class:        AppBundle\Security\Core\User\MyFOSUBUserProvider
+        arguments: ['@fos_user.user_manager', { facebook: facebook_id }]
