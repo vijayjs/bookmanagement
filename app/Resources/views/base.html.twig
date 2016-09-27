@@ -47,6 +47,12 @@
                                         <a href="#">
                                             <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage'|trans }}
                                         </a>
+                                    </li>                        
+
+									<li>
+                                        <a href="#">
+                                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.addlib'|trans }}
+                                        </a>
                                     </li>
 
                                     {% if is_granted('ROLE_ADMIN') %}
@@ -119,7 +125,8 @@
 
             <script src="{{ asset('js/app.js') }}"></script>
         {% endblock %}
-
+		{% block js %}
+		{% endblock %}
         {# it's not mandatory to set the timezone in localizeddate(). This is done to
            avoid errors when the 'intl' PHP extension is not available and the application
            is forced to use the limited "intl polyfill", which only supports UTC and GMT #}

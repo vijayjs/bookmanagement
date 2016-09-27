@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Catalogue</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ catalogue.id }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if catalogue.createdAt %}{{ catalogue.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Modifiedat</th>
+                <td>{% if catalogue.modifiedAt %}{{ catalogue.modifiedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ catalogue.title }}</td>
+            </tr>
+            <tr>
+                <th>Isbn</th>
+                <td>{{ catalogue.isbn }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ catalogue.description }}</td>
+            </tr>
+            <tr>
+                <th>Categoryid</th>
+                <td>{{ catalogue.categoryId }}</td>
+            </tr>
+            <tr>
+                <th>Attachmentthumb</th>
+                <td>{{ catalogue.attachmentThumb }}</td>
+            </tr>
+            <tr>
+                <th>Attachmentfile</th>
+                <td>{{ catalogue.attachmentFile }}</td>
+            </tr>
+            <tr>
+                <th>Cataloguetype</th>
+                <td>{{ catalogue.catalogueType }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{% if catalogue.status %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('catalogue_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('catalogue_edit', { 'id': catalogue.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

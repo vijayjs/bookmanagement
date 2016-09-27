@@ -242,6 +242,10 @@
             <trans-unit id="menu.homepage">
                 <source>menu.homepage</source>
                 <target>Homepage</target>
+            </trans-unit>        
+			<trans-unit id="menu.addlib">
+                <source>menu.addlib</source>
+                <target>Add New Catelogue Info</target>
             </trans-unit>
             <trans-unit id="menu.admin">
                 <source>menu.admin</source>

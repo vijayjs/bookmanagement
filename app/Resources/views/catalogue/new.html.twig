@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Catalogue creation</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input type="submit" value="Create" />
+    {{ form_end(form) }}
+{{ oneup_uploader_endpoint('gallery') }}
+    <ul>
+        <li>
+            <a href="{{ path('catalogue_index') }}">Back to the list</a>
+        </li>
+    </ul>
+{% endblock %}
+{% block javascripts %}
+{# uncomment the following lines to combine and minimize JavaScript assets with Assetic
+	{% javascripts filter="?test" output="js/app.js"
+		"%kernel.root_dir%/Resources/assets/js/jquery-2.1.4.js"
+		"%kernel.root_dir%/Resources/assets/js/moment.min.js"
+		"%kernel.root_dir%/Resources/assets/js/bootstrap-3.3.4.js"
+		"%kernel.root_dir%/Resources/assets/js/highlight.pack.js"
+		"%kernel.root_dir%/Resources/assets/js/bootstrap-datetimepicker.min.js"
+		"%kernel.root_dir%/Resources/assets/js/main.js" %}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+#}
+
+	<script src="{{ asset('js/app.js') }}"></script>
+{% endblock %}

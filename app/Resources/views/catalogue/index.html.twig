@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Catalogue list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Createdat</th>
+                <th>Modifiedat</th>
+                <th>Title</th>
+                <th>Isbn</th>
+                <th>Description</th>
+                <th>Categoryid</th>
+                <th>Attachmentthumb</th>
+                <th>Attachmentfile</th>
+                <th>Cataloguetype</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for catalogue in catalogues %}
+            <tr>
+                <td><a href="{{ path('catalogue_show', { 'id': catalogue.id }) }}">{{ catalogue.id }}</a></td>
+                <td>{% if catalogue.createdAt %}{{ catalogue.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if catalogue.modifiedAt %}{{ catalogue.modifiedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ catalogue.title }}</td>
+                <td>{{ catalogue.isbn }}</td>
+                <td>{{ catalogue.description }}</td>
+                <td>{{ catalogue.categoryId }}</td>
+                <td>{{ catalogue.attachmentThumb }}</td>
+                <td>{{ catalogue.attachmentFile }}</td>
+                <td>{{ catalogue.catalogueType }}</td>
+                <td>{% if catalogue.status %}Yes{% else %}No{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('catalogue_show', { 'id': catalogue.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('catalogue_edit', { 'id': catalogue.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('catalogue_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

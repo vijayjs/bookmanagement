@@ -62,3 +62,6 @@ facebook_login:
 
 google_login:
     path: /login/check-google
+oneup_uploader:
+    resource: .
+    type: uploader    

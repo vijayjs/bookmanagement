@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
 			new FOS\UserBundle\FOSUserBundle(),
 			new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
+			new Oneup\UploaderBundle\OneupUploaderBundle(),
         ];
 
         // Some bundles are only used while developing the application or during
