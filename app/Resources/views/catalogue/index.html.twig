@@ -2,20 +2,15 @@
 
 {% block body %}
     <h1>Catalogue list</h1>
+<div><a class="btn btn-success" href="{{ path('catalogue_new') }}">Create a new Catelogue</a></div>
 
-    <table>
+<table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Createdat</th>
-                <th>Modifiedat</th>
                 <th>Title</th>
                 <th>Isbn</th>
-                <th>Description</th>
-                <th>Categoryid</th>
-                <th>Attachmentthumb</th>
-                <th>Attachmentfile</th>
                 <th>Cataloguetype</th>
+                <td>Image</td>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -23,35 +18,20 @@
         <tbody>
         {% for catalogue in catalogues %}
             <tr>
-                <td><a href="{{ path('catalogue_show', { 'id': catalogue.id }) }}">{{ catalogue.id }}</a></td>
-                <td>{% if catalogue.createdAt %}{{ catalogue.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if catalogue.modifiedAt %}{{ catalogue.modifiedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ catalogue.title }}</td>
                 <td>{{ catalogue.isbn }}</td>
-                <td>{{ catalogue.description }}</td>
-                <td>{{ catalogue.categoryId }}</td>
-                <td>{{ catalogue.attachmentThumb }}</td>
-                <td>{{ catalogue.attachmentFile }}</td>
                 <td>{{ catalogue.catalogueType }}</td>
+                <td>{% if catalogue.attachmentThumb %}<img width="50" src="{{ asset(catalogue.attachmentThumb) }}" class="img-responsive" /> {% else %} -- {% endif %}</td>
                 <td>{% if catalogue.status %}Yes{% else %}No{% endif %}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('catalogue_show', { 'id': catalogue.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('catalogue_edit', { 'id': catalogue.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    <div>
+                            <a class="btn btn-primary" href="{{ path('catalogue_show', { 'id': catalogue.id }) }}">show</a>
+                            <a class="btn btn-warning"  href="{{ path('catalogue_edit', { 'id': catalogue.id }) }}">edit</a>
+                    </div>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('catalogue_new') }}">Create a new entry</a>
-        </li>
-    </ul>
 {% endblock %}

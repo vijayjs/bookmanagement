@@ -247,6 +247,14 @@
                 <source>menu.addlib</source>
                 <target>Add New Catelogue Info</target>
             </trans-unit>
+			<trans-unit id="menu.addcat">
+                <source>menu.addcat</source>
+                <target>Category List</target>
+            </trans-unit>
+			<trans-unit id="menu.listlib">
+                <source>menu.listlib</source>
+                <target>My Catelogue Lists</target>
+            </trans-unit>
             <trans-unit id="menu.admin">
                 <source>menu.admin</source>
                 <target>Backend</target>

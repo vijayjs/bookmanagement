@@ -2,6 +2,12 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Catelogue;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
+
 /**
  * CatalogueRepository
  *
@@ -10,4 +16,78 @@ namespace AppBundle\Repository;
  */
 class CatalogueRepository extends \Doctrine\ORM\EntityRepository
 {
+    /**
+     * @return Query
+     */
+    public function queryLatestSearch($search_term)
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT c
+                FROM AppBundle:Catalogue c
+                WHERE c.createdAt <= :now AND (c.isbn = :search OR c.title = :search)
+                ORDER BY c.createdAt DESC
+            ')
+            ->setParameter('now', new \DateTime())
+            ->setParameter('search', $search_term)
+        ;
+    }
+
+    public function queryLatest()
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT c
+                FROM AppBundle:Catalogue c
+                WHERE c.createdAt <= :now
+                ORDER BY c.createdAt DESC
+            ')
+            ->setParameter('now', new \DateTime())
+        ;
+    }
+
+    public function queryLatestUser($user)
+    {
+        return $this->getEntityManager()
+            ->createQuery('
+                SELECT c
+                FROM AppBundle:Catalogue c
+                LEFT JOIN AppBundle:User u
+				WHERE u.id = c.user
+				WHERE u.username = :user
+                ORDER BY c.createdAt DESC
+            ')
+            ->setParameter('user', $user)
+        ;
+    }
+
+    /**
+     * @param int $page
+     *
+     * @return Pagerfanta
+     */
+    public function findLatest($page = 1, $search_term)
+    {
+		if(!empty($search_term)){
+			$paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatestSearch($search_term), false));
+		}else{
+			$paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatest(), false));
+		}
+        $paginator->setMaxPerPage(10);
+        $paginator->setCurrentPage($page);
+
+        return $paginator;
+    }
+
+    public function findLatestByUser($page = 1, $user)
+    {
+
+		$paginator = new Pagerfanta(new DoctrineORMAdapter($this->queryLatestUser($user), false));
+		
+        $paginator->setMaxPerPage(10);
+        $paginator->setCurrentPage($page);
+
+        return $paginator;
+    }
+
 }

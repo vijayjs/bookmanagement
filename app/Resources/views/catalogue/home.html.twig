@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id 'login' %}
+
+{% block main %}
+	<div class="row">
+       <form action="" method="get">
+        <div class="col-md-12">
+            <div id="custom-search-input">
+                <div class="input-group col-md-12">
+                    <input type="text" name="search_term" value="{{search_term}}" class="form-control input-lg" placeholder="Search By ISBN Or Title" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-info btn-lg" type="button">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+		</form>
+	<div class="col-md-12">
+		<div class="well well-sm" style="margin-top:10px;">
+			<strong>Books List</strong>
+		</div>
+		<div id="products" class="row list-group">
+				{% for catalogue in catalogues %}
+
+			<div class="item  col-xs-4 col-lg-4">
+				<div class="thumbnail">
+					{% if catalogue.attachmentThumb %}
+						<img class="group list-group-image" src="{{ asset(catalogue.attachmentThumb) }}" alt="" />
+					{% else %}
+						<img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+					{% endif %}
+					<div class="caption">
+						<h4 class="group inner list-group-item-heading">
+							{{ catalogue.title }} <small>ISBN {{ catalogue.isbn }}</small></h4>
+						<p class="group inner list-group-item-text">
+							{{ catalogue.description }}</p>
+					</div>
+					<p> Posted By: <a href="{{ path('catalogue_user', {'page': 1, 'user': catalogue.user})}}">{{ catalogue.user }}</a></p>
+					<p><a class="btn btn-info" href="">Like</a></p>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="navigation text-center">
+			{{ pagerfanta(catalogues, 'twitter_bootstrap3_translated', { routeName: 'catalogue_dashboard_paginated' }) }}
+		</div>
+	</div>
+		</div>
+
+{% endblock %}
+{% block js %}
+<script>
+$(document).ready(function() {
+    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
+    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+});
+</script>
+
+{% endblock %}		

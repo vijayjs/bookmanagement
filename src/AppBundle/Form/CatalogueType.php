@@ -5,7 +5,10 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use AppBundle\Entity\Category;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class CatalogueType extends AbstractType
 {
@@ -16,15 +19,24 @@ class CatalogueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('category')
+            ->add('catalogueType', ChoiceType::class, array(
+				'choices'  => array(
+					'Book' => 'Book',
+					'Video' => 'Video',
+					'Games' => 'Games'
+				),
+			))
             ->add('isbn')
-            ->add('description', TextType::class)
-            ->add('categoryId')
-            ->add('attachmentThumb')
-            ->add('attachmentFile')
-            ->add('catalogueType')
+            ->add('title')
+            ->add('description')
+            ->add('attachmentThumb', FileType::class, array('label'=>'Thumb Image'))
+            ->add('attachmentThumb1', TextType::class, array( "mapped" => false, 'label'=>'(OR) Thumb Image Url'))
+            ->add('attachmentFile', FileType::class, array('label'=>'Source File(Book Pdf)'))
+            ->add('attachmentFile1', TextType::class, array( "mapped" => false, 'label'=>'(OR) Source File Url'))
             ->add('status')
         ;
+		
     }
     
     /**

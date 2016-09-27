@@ -5,27 +5,34 @@
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
+        <input type="submit" class="btn btn-success"   value="Create" />
     {{ form_end(form) }}
-{{ oneup_uploader_endpoint('gallery') }}
-    <ul>
-        <li>
-            <a href="{{ path('catalogue_index') }}">Back to the list</a>
-        </li>
-    </ul>
-{% endblock %}
-{% block javascripts %}
-{# uncomment the following lines to combine and minimize JavaScript assets with Assetic
-	{% javascripts filter="?test" output="js/app.js"
-		"%kernel.root_dir%/Resources/assets/js/jquery-2.1.4.js"
-		"%kernel.root_dir%/Resources/assets/js/moment.min.js"
-		"%kernel.root_dir%/Resources/assets/js/bootstrap-3.3.4.js"
-		"%kernel.root_dir%/Resources/assets/js/highlight.pack.js"
-		"%kernel.root_dir%/Resources/assets/js/bootstrap-datetimepicker.min.js"
-		"%kernel.root_dir%/Resources/assets/js/main.js" %}
-		<script src="{{ asset_url }}"></script>
-	{% endjavascripts %}
-#}
 
-	<script src="{{ asset('js/app.js') }}"></script>
+    <div>
+            <a href="{{ path('catalogue_index') }}">Back to the list</a>
+        </div>
 {% endblock %}
+{%block js %}
+<script>
+$(document).ready(function(){
+	$('#catalogue_isbn').change(function(){
+	var isbn = $(this).val();
+		$.ajax({
+			type: "GET",
+			url: "search",
+			contentType: 'application/json; charset=UTF-8',
+			data: {
+			   bookisbn: isbn
+			},
+			dataType: "json",
+			success: function(response) {
+				if(response){
+					$('#catalogue_title'). val(response['ISBN:'+isbn]['title']);
+					$('#catalogue_description'). val(response['ISBN:'+isbn]['notes']);
+				}
+			}
+		});
+	});
+});
+</script>
+{%endblock %}

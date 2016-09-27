@@ -44,14 +44,20 @@
 
                                 {% block header_navigation_links %}
                                     <li>
-                                        <a href="#">
+                                        <a href="{{ path('catalogue_dashboard') }}">
                                             <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage'|trans }}
                                         </a>
                                     </li>                        
 
 									<li>
-                                        <a href="#">
-                                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.addlib'|trans }}
+                                        <a href="{{ path('catalogue_index') }}">
+                                            <i class="fa fa-list" aria-hidden="true"></i> {{ 'menu.listlib'|trans }}
+                                        </a>
+                                    </li>
+
+									<li>
+                                        <a href="{{ path('category_index') }}">
+                                            <i class="fa fa-edit" aria-hidden="true"></i> {{ 'menu.addcat'|trans }}
                                         </a>
                                     </li>
 

@@ -9,7 +9,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Category
  *
  * @ORM\Table(name="category")
- * @ORM\HasLifecycleCallbacks
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  */
 class Category
@@ -48,19 +47,7 @@ class Category
      * @ORM\OneToMany(targetEntity="Catalogue", mappedBy="category")
      */
     private $catalogues;
-	
-	/**
-	 *
-	 * @ORM\PrePersist
-	 * @ORM\PreUpdate
-	 */
-	public function updatedTimestamps()
-	{
-		if ($this->getCreatedAt() == null) {
-			$this->setCreatedAt(new \DateTime('now'));
-		}
-	}
-	
+
     public function __construct()
     {
         $this->catalogues = new ArrayCollection();
@@ -147,41 +134,9 @@ class Category
     {
         return $this->status;
     }
-
-    /**
-     * Add catalogue
-     *
-     * @param \AppBundle\Entity\Catalogue $catalogue
-     *
-     * @return Category
-     */
-    public function addCatalogue(\AppBundle\Entity\Catalogue $catalogue)
-    {
-        $this->catalogues[] = $catalogue;
-
-        return $this;
-    }
-
-    /**
-     * Remove catalogue
-     *
-     * @param \AppBundle\Entity\Catalogue $catalogue
-     */
-    public function removeCatalogue(\AppBundle\Entity\Catalogue $catalogue)
-    {
-        $this->catalogues->removeElement($catalogue);
-    }
-
-    /**
-     * Get catalogues
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCatalogues()
-    {
-        return $this->catalogues;
-    }
-public function __toString() {
-    return $this->name;
+	
+	public function __toString() {
+		return $this->name;
+	}
 }
-}
+
