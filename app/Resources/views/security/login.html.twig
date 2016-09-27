@@ -38,10 +38,10 @@
                 {{ 'help.login_users'|trans }}
             </h3>
 			<div class="row ">
-				<a href="{{ path('facebook_login') }}" class="btn btn-lg btn-block omb_btn-facebook">
+				<a href="{{ hwi_oauth_login_url('facebook') }}" class="btn btn-lg btn-block omb_btn-facebook">
 					{{ 'action.facebook'|trans }}
 				</a>
-		        <a href="{{ path('google_login') }}" class="btn btn-lg btn-block omb_btn-google">
+		        <a href="{{ hwi_oauth_login_url('google') }}" class="btn btn-lg btn-block omb_btn-google">
 			        {{ 'action.google'|trans }}
 		        </a>
 	        </div>	

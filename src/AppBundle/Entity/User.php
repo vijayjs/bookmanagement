@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as FOSUBUser;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="users")
@@ -11,19 +12,20 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User extends FOSUBUser
 {
-    /**
-     * @ORM\Column(name="id", type="integer")
+     /**
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-
-    /**
-     * @ORM\Column(name="facebook_id", type="string", length=255, nullable=true)
-     */
-    private $facebookId;
-
-    private $facebookAccessToken;
+    /** @ORM\Column(name="facebook_id", type="string", length=255, nullable=true) */
+    protected $facebookId;
+    /** @ORM\Column(name="facebook_access_token", type="string", length=255, nullable=true) */
+    protected $facebookAccessToken;
+    /** @ORM\Column(name="google_id", type="string", length=255, nullable=true) */
+    protected $googleId;
+    /** @ORM\Column(name="google_access_token", type="string", length=255, nullable=true) */
+    protected $googleAccessToken;
 
     /**
      * @return integer
@@ -69,5 +71,43 @@ class User extends FOSUBUser
     public function getFacebookAccessToken()
     {
         return $this->facebookAccessToken;
+    }
+	
+    /**
+     * @param string $facebookId
+     * @return User
+     */
+    public function setGoogleId($googleId)
+    {
+        $this->googleId = $googleId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGoogleId()
+    {
+        return $this->googleId;
+    }
+
+    /**
+     * @param string $googleAccessToken
+     * @return User
+     */
+    public function setGoogleAccessToken($googleAccessToken)
+    {
+        $this->googleAccessToken = $googleAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGoogleAccessToken()
+    {
+        return $this->googleAccessToken;
     }
 }

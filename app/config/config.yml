@@ -95,13 +95,19 @@ swiftmailer:
     spool:     { type: memory }
     
 hwi_oauth:
+    http_client:
+        timeout:       10 # Time in seconds, after library will shutdown request, by default: 5
+        verify_peer:   false # Setting allowing you to turn off SSL verification, by default: true
+        ignore_errors: true
+        max_redirects: 1 
+    firewall_names: [secured_area]
     connect:
         account_connector: my.custom.user_provider
     fosub:
         username_iterations: 30
         properties:
-            facebook:    facebook_id
-    firewall_names: [secured_area]
+            facebook:    facebookId
+            google:    googleId
     resource_owners:
         facebook:
             type:                facebook
@@ -118,9 +124,5 @@ hwi_oauth:
             scope:               "email profile"
 fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
-    firewall_name: main
+    firewall_name: secured_area
     user_class: AppBundle\Entity\User
-services:
-    my.custom.user_provider:
-        class:        AppBundle\Security\Core\User\MyFOSUBUserProvider
-        arguments: ['@fos_user.user_manager', { facebook: facebook_id }]

@@ -14,8 +14,8 @@ security:
             anonymous: ~
             oauth:
                 resource_owners:
-                    google:             "/login/check_google"
-                    facebook:             "/login/check_facebook"
+                    facebook:           "/login/check-facebook"
+                    google:             "/login/check-google"
                 login_path:        /login
                 use_forward:       false
                 failure_path:      /login
@@ -51,5 +51,6 @@ security:
     access_control:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
-        - { path: '^/admin', roles: ROLE_ADMIN }
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
