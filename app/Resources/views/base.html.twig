@@ -43,6 +43,7 @@
                             <ul class="nav navbar-nav navbar-right">
 
                                 {% block header_navigation_links %}
+									{% if app.user %}
                                     <li>
                                         <a href="{{ path('catalogue_dashboard') }}">
                                             <i class="fa fa-home" aria-hidden="true"></i> {{ 'menu.homepage'|trans }}
@@ -61,13 +62,13 @@
                                         </a>
                                     </li>
 
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-lock" aria-hidden="true"></i> {{ 'menu.admin'|trans }}
-                                            </a>
-                                        </li>
-                                    {% endif %}
+									<li>
+                                        <a href="{{ path('userlike_index') }}">
+                                            <i class="fa fa-apple" aria-hidden="true"></i> My Likes
+                                        </a>
+                                    </li>
+                                {% endif %}
+
                                 {% endblock %}
 
                                 {% if app.user %}

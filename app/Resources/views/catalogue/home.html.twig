@@ -39,7 +39,9 @@
 							{{ catalogue.description }}</p>
 					</div>
 					<p> Posted By: <a href="{{ path('catalogue_user', {'page': 1, 'user': catalogue.user})}}">{{ catalogue.user }}</a></p>
-					<p><a class="btn btn-info" href="">Like</a></p>
+					{% if app.user and app.user != catalogue.user %}
+						<p><a data-id = "{{catalogue.id}}" class="btn btn-info like_catalogue" href="#">Like</a></p>
+					{% endif %}
 				</div>
 			</div>
 			{% endfor %}
@@ -54,8 +56,19 @@
 {% block js %}
 <script>
 $(document).ready(function() {
-    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
-    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
+	
+	$('.like_catalogue').click(function(e){
+		e.preventDefault();
+		var catalogue_id = $(this).data('id');
+		$.ajax({
+			type: "POST",
+			url: "../userlike/new_like",
+			data: {catalogue_id:catalogue_id},
+			success: function(response) {
+				location.reload();
+			}
+		});
+	});
 });
 </script>
 

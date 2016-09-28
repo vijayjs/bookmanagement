@@ -30,10 +30,11 @@ class CatalogueType extends AbstractType
             ->add('isbn')
             ->add('title')
             ->add('description')
-            ->add('attachmentThumb', FileType::class, array('label'=>'Thumb Image'))
-            ->add('attachmentThumb1', TextType::class, array( "mapped" => false, 'label'=>'(OR) Thumb Image Url'))
-            ->add('attachmentFile', FileType::class, array('label'=>'Source File(Book Pdf)'))
-            ->add('attachmentFile1', TextType::class, array( "mapped" => false, 'label'=>'(OR) Source File Url'))
+            ->add('author')
+            ->add('attachmentThumb', FileType::class, array('label'=>'Thumb Image', 'required'=>false, ))
+            ->add('attachmentThumb1', TextType::class, array( "mapped" => false, 'required'=>false, 'label'=>'(OR) Thumb Image Url'))
+            ->add('attachmentFile', FileType::class, array('label'=>'Source File(Book Pdf)',  'required'=>false, ))
+            ->add('attachmentFile1', TextType::class, array( "mapped" => false,  'required'=>false, 'label'=>'(OR) Source File Url'))
             ->add('status')
         ;
 		

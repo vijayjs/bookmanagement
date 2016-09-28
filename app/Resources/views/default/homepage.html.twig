@@ -3,36 +3,22 @@
 {% block body_id 'login' %}
 
 {% block main %}
-    <div class="well well-sm">
-        <strong>Books Title</strong>
-        <div class="btn-group">
-            <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
-            </span>List</a> <a href="#" id="grid" class="btn btn-default btn-sm"><span
-                class="glyphicon glyphicon-th"></span>Grid</a>
-        </div>
-    </div>
-    <div id="products" class="row list-group">
-        <div class="item  col-xs-4 col-lg-4">
-            <div class="thumbnail">
-                <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
-                <div class="caption">
-                    <h4 class="group inner list-group-item-heading">
-                        Product title</h4>
-                    <p class="group inner list-group-item-text">
-                        Product description... Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row">
+        <div id="login-help" class="col-sm-7 well">
+            <h3>
+                {% if app.user %}
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+				<a href="{{ path('catalogue_dashboard') }}">
+					GO to Dashboard
+				</a>
+                {% else %}
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+				<a href="{{ path('security_login') }}">
+					Click Here to Login
+				</a>
+                {% endif %}
+            </h3>
+		</div>
 
+    </div>
 {% endblock %}
-{% block js %}
-<script>
-$(document).ready(function() {
-    $('#list').click(function(event){event.preventDefault();$('#products .item').addClass('list-group-item');});
-    $('#grid').click(function(event){event.preventDefault();$('#products .item').removeClass('list-group-item');$('#products .item').addClass('grid-group-item');});
-});
-</script>
-
-{% endblock %}		

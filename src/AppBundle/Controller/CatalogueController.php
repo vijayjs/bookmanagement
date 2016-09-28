@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class CatalogueController extends Controller
 {
-    /**
+	/**
      * Lists all Catalogue entities.
      *
      * @Route("/home", defaults={"page": 1}, name="catalogue_dashboard")
@@ -119,11 +119,11 @@ class CatalogueController extends Controller
 				$data = $form['attachmentFile']->getData()->move('web/uploads', $NewFilename1);
 				$catalogue->setattachmentFile($data->getpathName());
 			}
-			$attachmentThumb1 = $request->request->get('attachmentThumb1');
+			$attachmentThumb1 = $request->request->get('catalogue')['attachmentThumb1'];
 			if(!empty($attachmentThumb1)){
 				$catalogue->setattachmentThumb($attachmentThumb1);
 			}
-			$attachmentFile1 = $request->request->get('attachmentFile1');
+			$attachmentFile1 = $request->request->get('catalogue')['attachmentFile1'];
 			if(!empty($attachmentFile1)){
 				$catalogue->setattachmentFile($attachmentFile1);
 			}
